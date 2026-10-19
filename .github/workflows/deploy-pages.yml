@@ -1,0 +1,93 @@
+name: Deploy Pages (联动平台静态演示)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'link-platform/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 组装静态站点（3D 大屏 + 安药 App 浏览器演示）
+        run: |
+          set -e
+          mkdir -p _site
+          # 3D 联动大屏（public/ 原样）
+          cp -r link-platform/public/. _site/
+          # 安药 App 页面（无原生桥时自动走浏览器本地数据模式）
+          cp -r link-platform/app _site/app
+          # 静态预览提示：GitHub Pages 无 Node 服务端，三端实时联动需本地 node server.cjs
+          cat > _site/static-banner.js <<'BANNER'
+          /* GitHub Pages 静态预览提示：完整三端联动需 Node 服务端（本地 node server.cjs） */
+          (function () {
+            if (!/\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname)) return;
+            fetch('/native/info?k=pages', { method: 'GET' }).then(function (r) {
+              if (r.ok) return;
+              show();
+            }).catch(show);
+            function show() {
+              if (document.getElementById('pages-banner')) return;
+              var b = document.createElement('div');
+              b.id = 'pages-banner';
+              b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff7e6;border-top:1px solid #ffd591;color:#874d00;font:13px/1.6 system-ui,"Microsoft YaHei",sans-serif;padding:8px 14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap';
+              b.innerHTML = '<span>静态预览模式：3D 大屏与 App 页面可正常浏览；三端实时联动需本地运行 <code>node server.cjs</code>（端口 4200）。</span><a href="/anyao/" style="color:#0958d9">查看仓库说明</a><button style="border:1px solid #ffd591;background:#fff;border-radius:4px;padding:1px 10px;cursor:pointer">知道了</button>';
+              b.querySelector('button').onclick = function () { b.remove(); };
+              document.body.appendChild(b);
+            }
+          })();
+          BANNER
+          # 注入到 3D 大屏首页
+          python3 - <<'PY'
+          p = '_site/index.html'
+          s = open(p, encoding='utf-8').read()
+          if 'static-banner.js' not in s:
+              s = s.replace('</head>', '  <script src="/static-banner.js" defer></script>\n</head>', 1)
+              open(p, 'w', encoding='utf-8').write(s)
+              print('banner injected')
+          PY
+          # 404 友好页
+          cat > _site/404.html <<'HTML'
+          <!doctype html>
+          <html lang="zh-CN">
+          <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>安药 · 页面不存在</title>
+          <style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f6f7f9;font:15px/1.7 system-ui,"Microsoft YaHei",sans-serif;color:#333}
+          .card{background:#fff;border:1px solid #e5e6eb;border-radius:12px;padding:32px 40px;text-align:center;max-width:420px}
+          h1{font-size:20px;margin:0 0 8px}p{margin:0 0 16px;color:#666}a{color:#0958d9;text-decoration:none}</style>
+          </head>
+          <body><div class="card">
+            <h1>安药 AnYao</h1>
+            <p>这个页面不存在。三端联动大屏与 App 演示在首页。</p>
+            <a href="/anyao/">返回在线演示首页 →</a>
+          </div></body></html>
+          HTML
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
