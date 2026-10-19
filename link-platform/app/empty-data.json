@@ -1,0 +1,26 @@
+{
+  "drugs": [],
+  "intakeEvents": [],
+  "refills": [],
+  "audit": [],
+  "hipeeHistory": [],
+  "settings": {
+    "vibration": true,
+    "sound": true,
+    "flash": true,
+    "phone": true,
+    "autoSnooze": true
+  },
+  "alerts": [],
+  "family": {
+    "user": null,
+    "contacts": [],
+    "missedAfterMinutes": 30,
+    "channels": {
+      "wechat": true,
+      "sms": true,
+      "email": false,
+      "call": true
+    }
+  }
+}

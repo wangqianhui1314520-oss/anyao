@@ -1,0 +1,14 @@
+/* 安药的界面字体（安卓）：设计稿在 Windows 上以“Segoe UI + 微软雅黑”出图，手机上没有这两款字体，
+   而它们都不能随 App 分发，这里用两款开源的同类字体还原同样的组合：
+   - 拉丁字母与西文标点：Selawik（微软官方开源的 Segoe UI 等宽度替代字体，SIL OFL 1.1，未修改原文件，见 fonts/Selawik-OFL.txt）；
+   - 中文：思源黑体 Noto Sans SC（SIL OFL 1.1，裁成 GB2312 常用字，见 fonts/OFL.txt）。
+   字重档位与设计稿一致：Segoe UI 有 细 / 半细 / 常规 / 半粗 / 粗，雅黑只有 细 / 常规 / 粗，
+   所以 500（中粗）在两边都显示成常规体，600 西文为半粗、中文为粗。数字与时间仍由 assets.css 的 MiSansLatin 负责。 */
+@font-face { font-family: "AnYao Latin"; font-weight: 100 324; font-display: block; src: url("./fonts/selawkl.woff2") format("woff2"); unicode-range: U+0000-024F, U+02B0-02FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF; }
+@font-face { font-family: "AnYao Latin"; font-weight: 325 374; font-display: block; src: url("./fonts/selawksl.woff2") format("woff2"); unicode-range: U+0000-024F, U+02B0-02FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF; }
+@font-face { font-family: "AnYao Latin"; font-weight: 375 549; font-display: block; src: url("./fonts/selawk.woff2") format("woff2"); unicode-range: U+0000-024F, U+02B0-02FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF; }
+@font-face { font-family: "AnYao Latin"; font-weight: 550 649; font-display: block; src: url("./fonts/selawksb.woff2") format("woff2"); unicode-range: U+0000-024F, U+02B0-02FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF; }
+@font-face { font-family: "AnYao Latin"; font-weight: 650 900; font-display: block; src: url("./fonts/selawkb.woff2") format("woff2"); unicode-range: U+0000-024F, U+02B0-02FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF; }
+@font-face { font-family: "AnYao Sans"; font-weight: 100 349; font-display: block; src: url("./fonts/anyao-sans-light.woff2") format("woff2"); }
+@font-face { font-family: "AnYao Sans"; font-weight: 350 549; font-display: block; src: url("./fonts/anyao-sans-regular.woff2") format("woff2"); }
+@font-face { font-family: "AnYao Sans"; font-weight: 550 900; font-display: block; src: url("./fonts/anyao-sans-bold.woff2") format("woff2"); }

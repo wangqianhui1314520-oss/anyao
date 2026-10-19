@@ -1,0 +1,42 @@
+# ============================================================
+# 安药开源仓库 · 根 .gitignore
+# 原则：只跟踪「不可重建的源码 / 文档 / 脚本 / 静态资产」，
+#       运行时数据、密钥、构建产物一律忽略
+# ============================================================
+
+# ---- 1. 依赖（可重建）----
+node_modules/
+.pnpm-store/
+__pycache__/
+*.pyc
+
+# ---- 2. 构建产物与测试残留 ----
+dist/
+build/
+*.tsbuildinfo
+.qa/temp-data.json
+.smoke-profile/
+
+# ---- 3. 联动平台运行时数据（启动时自动生成，种子模板在 app/empty-data.json）----
+link-platform/data/
+
+# ---- 4. 签名密钥与二进制（构建默认用本机 debug keystore，密钥永不入仓）----
+*.jks
+*.keystore
+*.p12
+*.pem
+*.apk
+*.zip
+*.exe
+*.dll
+*.so
+
+# ---- 5. 发布会大件（走 GitHub Releases / 魔搭，不入 git）----
+*.mp4
+*.pptx
+
+# ---- 6. 编辑器 / 系统 ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

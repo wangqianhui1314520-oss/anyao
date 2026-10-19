@@ -1,0 +1,8 @@
+ZXing Core 3.5.3
+Copyright ZXing authors.
+Licensed under the Apache License, Version 2.0; see ZXING-LICENSE.txt.
+Official source: https://github.com/zxing/zxing/tree/zxing-3.5.3
+Unmodified Maven artifact: https://repo.maven.apache.org/maven2/com/google/zxing/core/3.5.3/core-3.5.3.jar
+Dependency hash and provenance: zxing.json
+
+This attribution file was prepared for the AnYao repair distribution.

@@ -1,0 +1,165 @@
+:root{--blue:#147aff;--ink:#1d2a39;--muted:#8794a2;--line:#eef2f6;--bg:#f1f6fa;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+body{background:linear-gradient(140deg,#edf5fa,#f9fcfd)}.app-shell{padding:24px 16px}.phone{width:min(100%,430px);height:calc(100dvh - 48px);min-height:600px;border-radius:30px;border:1px solid #fff;background:#f7f9fb;box-shadow:0 16px 70px #47749118;overflow:hidden}.topbar{height:48px;min-height:48px;padding:16px 23px 6px}.wordmark{font-size:14px;font-weight:700;color:#58708b;letter-spacing:.08em}.wordmark span{font-size:8px;letter-spacing:.16em;margin-left:7px;color:#a3afbc}.local-tag{font-size:9px;color:#9caab8;border:1px solid #e2e9f0;border-radius:5px;padding:3px 5px}.view{padding:12px 19px 26px;min-height:0;overflow:auto;flex:1}.tabs{position:relative;flex:none;height:74px;padding:12px 10px 14px;background:#ffffffed;border-top:1px solid #e8edf3}.tabs button{font-size:11px}.tabs svg{width:23px;height:23px}.tabs b{line-height:0}.page-heading{display:flex;align-items:center;justify-content:space-between;margin:0 2px 20px}.page-heading h1{font:700 30px "Songti SC","SimSun",serif;color:#111f2f;margin:0;letter-spacing:.02em}.page-heading p{font-size:11px;margin:7px 0 0;color:var(--muted);letter-spacing:.01em}.icon-button{display:grid;place-items:center;width:35px;height:35px;border-radius:11px;background:#fff;color:#243548;box-shadow:0 4px 10px #45638408}.icon-button svg{width:21px;height:21px}.add{display:flex;align-items:center;gap:4px;padding:10px 12px;box-shadow:none;background:var(--blue)}.add svg{width:17px;height:17px}.surface{border:0;border-radius:15px;background:#fff;box-shadow:0 5px 20px #324e6905;overflow:hidden}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:22px 5px 12px}.section-heading h2{font:700 17px "Songti SC","SimSun",serif;margin:0}.section-heading button{background:none;color:var(--muted);font-size:11px}
+.device-card{display:flex;align-items:center;justify-content:space-between;padding:12px 17px 16px;margin-bottom:12px}.device-card b{display:block;font-size:15px}.device-card small{display:block;color:#8d99a7;font-size:11px;margin-top:8px}.device-card small i{width:7px;height:7px;display:inline-block;background:#a8b5c3;border-radius:50%;margin-right:5px}.pillbox{position:relative;width:100px;height:57px;border-radius:30px 30px 20px 20px;background:linear-gradient(170deg,#fff 10%,#eef1f3 70%,#cdd5dc);box-shadow:0 8px 10px #4660761b,inset 0 -4px 4px #b4bec72b;transform:rotate(-7deg);border:1px solid #e4e8ec}.pillbox:before{content:"";position:absolute;inset:3px 4px 18px;border-radius:50%;background:linear-gradient(155deg,#fff,#f4f6f8);border-bottom:2px solid #d9dfe4}.pillbox i{position:absolute;left:12px;bottom:12px;width:36px;height:2px;background:#6acbff;box-shadow:0 1px 3px #57c2ff44}.next-card{display:flex;align-items:center;text-align:left;gap:13px;width:100%;color:white;padding:22px 17px;border-radius:20px;background:linear-gradient(140deg,#398bff,#0f72f7);box-shadow:0 10px 20px #167bff20;margin-bottom:14px;position:relative;overflow:hidden}.next-card:after{content:"";position:absolute;right:-30px;top:-40px;width:140px;height:140px;border:20px solid #ffffff09;border-radius:50%}.next-card small{display:block;font-size:12px;opacity:.9}.next-card strong{display:block;font-size:35px;font-weight:400;letter-spacing:.01em;margin:3px 0}.next-card span span{font-size:12px;opacity:.95}.next-card>b{margin-left:auto;display:grid;place-items:center;background:#ffffff20;border-radius:50%;width:31px;height:31px;font-size:23px}.clock-orb{display:grid;place-items:center;background:#ffffff20;border:7px solid #ffffff10;width:45px;height:45px;border-radius:50%;align-self:flex-start}.clock-orb svg{width:25px;height:25px}.quick{gap:5px;margin:2px 0 20px}.quick button{padding:11px 3px 9px;background:#fff;border-radius:12px;display:flex;align-items:center;flex-direction:column;gap:4px}.quick svg{width:23px;height:23px;color:#8560ef}.quick button:nth-child(2) svg{color:#24b371}.quick button:nth-child(3) svg{color:#f5b128}.quick button:nth-child(4) svg{color:#147aff}.quick b{font-size:11px;font-weight:400;margin:0}.quick small{font-size:10px;color:var(--muted)}
+.device-card.wearable-home-entry{width:100%;border:0;text-align:left;color:var(--ink);font:inherit;cursor:pointer;background:#fff}.device-card.wearable-home-entry:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.wearable-home-entry .arrow{margin-left:auto;padding-left:8px}
+.dose-row{width:100%;display:flex;align-items:center;text-align:left;gap:10px;padding:16px 13px;border-bottom:1px solid #f1f4f7;background:#fff;font-size:12px;color:var(--ink)}.dose-row:last-child{border:0}.dose-row>b{font-size:12px;min-width:37px;font-variant-numeric:tabular-nums}.dose-row>span{flex:1;font-size:12px}.dose-row small{font-size:11px}.badge{font-size:9px;font-style:normal;padding:4px 5px;border-radius:5px;background:#f5f7f9;color:#8f98a4;white-space:nowrap}.badge.taken{color:#33b67b;background:#effaf4}.badge.scheduled{color:#147aff;background:#eef5ff}.dose-check{display:block;border:1px solid #bac3cd;border-radius:50%;height:17px;width:17px;flex:none}.dose-check.checked{color:white;border-color:#39be84;background:#39be84}.dose-check svg{width:15px;height:15px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:17px 0 0}.summary-grid button{padding:16px;background:#fff;border-radius:15px;text-align:left;color:var(--ink);position:relative}.summary-grid svg{width:23px;height:23px;color:var(--blue);margin-bottom:7px}.summary-grid b{display:block;font-size:12px;margin-bottom:8px}.summary-grid strong{display:block;font-size:23px;font-weight:500}.summary-grid strong small{font-size:10px;color:var(--muted)}.summary-grid span,.summary-grid>button>small{display:block;font-size:10px;color:var(--muted);line-height:1.8}.summary-grid>button>small{color:var(--blue)}
+.menu-row{display:flex;align-items:center;gap:12px;padding:17px 14px;width:100%;border-bottom:1px solid #f1f4f7;text-align:left;background:#fff;color:var(--ink)}.menu-row:last-child{border-bottom:0}.row-icon{width:39px;height:39px;background:#f2f7ff;border-radius:14px;display:grid;place-items:center;color:var(--blue);flex:none}.row-icon svg{width:24px;height:24px}.row-icon.purple{background:#f7f3ff;color:#8260ef}.row-icon.orange{background:#fff9e8;color:#efaa18}.row-icon.pink{background:#fff3f6;color:#f33a7d}.row-icon.gray{background:#f3f5f6;color:#808b96}.row-body{flex:1}.row-body strong{display:block;font-size:14px;font-weight:600}.row-body small{display:block;color:var(--muted);font-size:11px;margin-top:5px;line-height:1.5}.arrow{font-size:21px;font-weight:300;color:#9aa6b2}.segmented{display:flex;margin:0 3px 14px;gap:0;border-bottom:1px solid #e4eaf1}.segmented button{width:50%;background:transparent;padding:10px;font-size:13px;color:#8b95a2}.segmented .selected{color:var(--blue);border-bottom:2px solid var(--blue)}
+.adherence-card{background:linear-gradient(140deg,#2688ff,#0d73f6);color:white;border-radius:21px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:22px 19px 15px;box-shadow:0 10px 20px #147aff1a}.adherence-card>div>small{font-size:13px}.adherence-card strong{display:block;font-size:45px;font-weight:400;margin:12px 0 3px}.adherence-card em{font-size:16px;font-style:normal;margin-left:8px}.adherence-card span{font-size:12px}.adherence-card>p{width:100%;border-top:1px solid #ffffff22;margin:20px 0 0;padding:13px 0 0;font-size:11px}.adherence-ring{width:105px;height:105px;border-radius:50%;background:conic-gradient(#73e39c var(--rate),#ffffff25 0);display:grid;place-items:center;position:relative}.adherence-ring:before{content:"";position:absolute;inset:9px;border-radius:50%;background:#177bf9}.adherence-ring b{z-index:1;font-size:24px;font-weight:500}.stats{display:grid;grid-template-columns:repeat(3,1fr);background:white;border-radius:14px;padding:20px 0}.stats>div{border-right:1px solid var(--line);text-align:center}.stats>div:last-child{border:0}.stats strong{display:block;font-size:24px;font-weight:500}.stats small{display:block;font-size:10px;color:var(--muted);margin-top:6px}
+.primary{box-shadow:none;background:var(--blue);font-size:13px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:12px;padding:13px}.primary svg{width:18px;height:18px}.record-button{margin-top:20px}.profile-card{display:flex;align-items:center;gap:12px;padding:17px 14px;width:100%;border-radius:15px 15px 0 0;background:#fff;text-align:left}.profile-avatar{width:44px;height:44px;background:#f0f2f4;border-radius:50%;color:#bcc1c7;display:grid;place-items:center}.profile-avatar svg{width:30px;height:30px}.profile-card strong{display:block;font-size:16px}.profile-card small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.profile-card>span:last-child{margin-left:auto;font-size:10px;color:var(--blue)}.profile-info{border-radius:0 0 15px 15px;padding:6px 15px 12px}.profile-info p{display:flex;justify-content:space-between;font-size:12px;line-height:1.7;margin:10px 0}.profile-info p span{color:var(--muted)}.profile-info b{font-weight:400}
+dialog{width:min(92vw,410px);max-height:88dvh;padding:20px;border-radius:22px;overflow:auto;background:#fbfcfe}dialog::backdrop{background:#1e355657;backdrop-filter:blur(4px)}.panel-head{align-items:center;gap:10px;margin-bottom:22px}.panel-head>div{flex:1}.panel-head h2{font:700 21px "Songti SC","SimSun",serif;margin:0 0 5px}.panel-head small{font-size:10px;color:var(--muted)}.panel-head .close{font-size:22px}.form-field{display:block;margin:16px 0;color:#758395;font-size:11px}.form-field input{display:block;width:100%;margin-top:8px;border:1px solid #e2e9f0;border-radius:10px;padding:12px;background:white;color:var(--ink);outline:none}.form-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #147aff12}.tracker-card svg{width:25px;height:25px;color:var(--blue);margin-bottom:10px}.history-row{padding:15px;display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line)}.history-row b{font-size:13px;font-weight:500}.history-row small{font-size:10px;color:var(--muted)}.setting-row{width:100%;background:#fff;font-size:12px;text-align:left}.switch{display:block}.dose-focus{text-align:center;padding:16px 0 28px}.dose-focus svg{width:47px;height:47px;color:var(--blue);padding:10px;background:#edf5ff;border-radius:15px}.dose-focus h3{font-size:31px;font-weight:500;margin:13px 0 4px}.dose-focus p{font-size:12px;color:var(--muted)}.dose-focus span{color:var(--blue);font-size:11px}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action-grid button{padding:14px;border:1px solid #deebfc;border-radius:12px;background:#eff6ff;color:var(--blue);font-size:12px}.action-grid button:first-child{background:var(--blue);color:#fff}.empty{padding:22px 13px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);padding:11px 20px;background:#24394feb;color:white;border-radius:30px;font-size:12px;z-index:100}.scan-box svg{height:40px;width:40px;color:var(--blue)}button:focus-visible{outline:2px solid var(--blue);outline-offset:3px}button:active{filter:brightness(.96)}.helper{line-height:1.8}
+@media(max-width:480px){.app-shell{padding:0}.phone{height:100dvh;min-height:0;border:0;border-radius:0}.view{padding-left:18px;padding-right:18px}.topbar{padding-left:21px;padding-right:21px}.tabs{height:calc(70px + env(safe-area-inset-bottom));padding-bottom:calc(14px + env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Use the same light serif typography on every screen and form. */
+:root{--font-serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun","Times New Roman",serif}
+html body,body *{font-family:var(--font-serif)!important;font-weight:300!important;font-synthesis:none}
+input::placeholder,textarea::placeholder{font-family:var(--font-serif);font-weight:300}
+.wearable-metric{background:white;border:1px solid var(--line);border-radius:14px;padding:15px}.wearable-metric span{display:block;font-size:11px;color:var(--muted)}.wearable-metric b{display:block;font-size:20px;margin-top:8px}.wearable-metric small{font-size:10px}.health-json{max-height:250px;overflow:auto;white-space:pre-wrap;font-size:11px;background:#f2f6fb;border-radius:12px;padding:12px}button:disabled{opacity:.45;cursor:not-allowed}
+/* 安药统一米白、酒红和墨色体系：所有二级页面共用同一视觉语言。 */
+:root{--blue:#8b5e6b;--blue2:#744957;--soft:#f7edef;--bg:#f6f2ef;--ink:#2f2928;--muted:#8c807d;--line:#e9dfdc;font-family:"Songti SC","Noto Serif SC","SimSun",serif}
+body{background:linear-gradient(140deg,#faf7f4,#f3eeeb)}
+.phone{background:#fbf9f7;border-color:#eee3df}
+.hero,.next-card,.adherence-card{background:linear-gradient(140deg,#8d6571,#704755 72%,#5f3947);box-shadow:0 10px 24px #70475524}
+.adherence-ring:before{background:#704755}.progress-bar i{background:linear-gradient(90deg,#8d6571,#c99483)}
+.blue-wash,.inventory-total{background:linear-gradient(135deg,#f7edef,#fbf8f5)}
+.scan-box{background:#f7f1ee;border-color:#d7c0c0}.status-chip,.badge.scheduled{background:#f7edef;color:#744957}
+.primary,.add{background:#7b4d5b;color:#fff}.secondary-btn,.action-grid button{color:#744957;background:#f7edef}
+.row-icon,.item-icon{background:#f7edef;color:#744957}.menu-row,.surface,.summary-grid button,.tracker-card{background:#fffdfb}
+.tabs button.active,.heading button,.text,.edit,.quick button:nth-child(4) svg,.tracker-card svg{color:#744957}
+.tabs{background:#fffdfbed}.detail-pill{color:#744957;background:#fffdfb}.ring{background:conic-gradient(#c99483 0 86%,#eadfda 86%)}.ring:after{background:#704755}
+*{font-family:inherit}
+.empty{background:transparent;color:var(--muted)}
+.pillbox i{background:#b98578;box-shadow:0 1px 3px #b9857833}
+.tabs button{color:#b9aaa5}.tabs button.active{color:#744957}
+.dose-row{background:#fffdfb}.dose-row .badge{background:#f4eeeb;color:#8c716d}
+ .health-record-group { margin: 10px 0; padding: 14px; }
+ .health-record-group summary { cursor: pointer; color: var(--ink, #21323b); }
+ .health-record-group summary span { float: right; color: #647b85; }
+ .health-record { padding: 12px 0; border-top: 1px solid #e3ecee; margin-top: 10px; }
+ .health-record strong, .health-record small { display: block; }
+ .health-record small { color: #647b85; margin-top: 4px; }
+ .health-record pre { font-family: inherit; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+ .android-app .app-shell { padding: 0; min-height: 100dvh; }
+ .android-app .phone { width: 100%; height: 100dvh; min-height: 0; border: 0; border-radius: 0; }
+
+/* Quiet, consistent secondary screens and touch controls. */
+html{color-scheme:light;accent-color:#7b4d5b}
+*{-webkit-tap-highlight-color:transparent}
+.wordmark{color:#744957}.wordmark span,.local-tag{color:#a48b86}.local-tag{border-color:#e9dfdc}
+.device-card.wearable-home-entry{border-radius:16px;background:#fffdfb}
+body{margin:0;background:#fbf9f7}
+.topbar{height:60px;min-height:60px;padding:16px 22px 10px;box-sizing:border-box}
+dialog{box-sizing:border-box;background:#fbf9f7;border:1px solid #e9dfdc;padding:22px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 32px)}
+dialog::backdrop{background:#30232160}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.panel-head>div{min-width:0}.panel-head h2{margin:0 0 5px;line-height:1.35;font-size:22px}
+.panel-head small{letter-spacing:0;line-height:1.6;font-size:11px}
+.panel-head .icon-button{flex:none;width:40px;height:40px;border:1px solid var(--line);background:#fffdfb;box-shadow:none}
+dialog label{display:block;min-width:0;color:var(--muted);font-size:12px;line-height:1.6}
+dialog input,dialog select,dialog textarea,.health-filters select,.health-date-control input{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;margin:8px 0 0;border:1px solid #e5d8d3;border-radius:12px;padding:12px 14px;min-height:44px;background:#fffdfb;color:var(--ink);outline:none;font-size:14px;box-shadow:none}
+dialog input:focus,dialog select:focus,dialog textarea:focus,.health-filters select:focus,.health-date-control input:focus{border-color:#9b6d7b;box-shadow:0 0 0 3px #8b5e6b12}
+dialog select,.health-filters select{appearance:none;padding-right:36px;background:#fffdfb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%238b5e6b' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center}
+dialog input[type=file]{font-size:12px;padding:8px;overflow:hidden}
+dialog input::file-selector-button{border:0;border-radius:8px;background:#f3e9e8;color:#744957;padding:9px 12px;margin-right:10px;font:inherit}
+dialog input[type=checkbox],dialog input[type=radio]{display:inline-block;width:auto;min-height:auto}
+.form-field{margin:18px 0}.two,.grid2,.action-grid{min-width:0}.two>*{min-width:0}
+.switch{background:#dfd4cf;flex:none}.switch.on{background:#7b4d5b}
+.helper{background:#f4eeea;color:#8c807d;font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+dialog details{margin:16px 0;border:1px solid var(--line);border-radius:14px;padding:14px;background:#fffdfb}
+dialog summary{cursor:pointer;color:#744957;font-size:13px;line-height:1.6}
+dialog details[open]>summary{margin-bottom:14px}dialog details details{background:#fbf9f7}
+.health-filters{gap:10px;align-items:end}.health-filters select{margin-top:5px;font-size:12px}
+.health-date-control input{margin:4px 0 0;font-size:13px}
+.health-period-tabs button{min-height:38px}.health-record-group summary span,.health-record small{color:var(--muted)}
+.calendar-grid .day.good{background:#f3e9e8;color:#744957}
+.row-icon.purple,.row-icon.pink,.row-icon.orange,.row-icon.gray{background:#f5eeea;color:#8b5e6b}
+.quick svg,.quick button:nth-child(n) svg{color:#8b5e6b}
+.quick button{position:relative;transition:background .16s,color .16s,box-shadow .16s;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.quick button.is-on{background:#7b4d5b;color:#fffaf5;box-shadow:0 5px 14px #7b4d5b24}
+.quick button.is-on b,.quick button.is-on small,.quick button.is-on svg{color:#fffaf5}
+.quick button.is-off{background:#eee8e2;color:#887a74;box-shadow:none}
+.quick button.is-off b,.quick button.is-off small,.quick button.is-off svg{color:#887a74}
+.quick-state{position:absolute;right:9px;top:9px;width:7px;height:7px;border-radius:50%;background:#c5b7af}
+.is-on .quick-state{background:#f5d8b2;box-shadow:0 0 0 3px #fff8}
+.quick button[aria-busy=true]{opacity:.68}.quick-hint{margin:10px 0 22px;text-align:center;color:#9c8881;font-size:11px;letter-spacing:1px}
+.reminder-editor{max-width:420px;margin:auto}.reminder-presets,.dial-tabs{display:flex;gap:7px;margin:18px 0;flex-wrap:wrap}
+.reminder-presets button{flex:1;border:1px solid #e7dbd4;background:#fffdfb;color:#7b4d5b;border-radius:12px;padding:10px 14px;min-height:42px}
+.dial-tabs button{border:0;border-radius:20px;padding:10px 14px;background:#eee8e2;color:#8a766e;font-size:12px;min-height:40px}
+.dial-tabs button.selected,.weekday-picker button.selected{background:#7b4d5b;color:#fffaf5}
+.dial-stage{position:relative;display:flex;justify-content:center;margin:26px 0 18px}
+.reminder-dial{width:204px;height:204px;flex:none;border-radius:50%;padding:13px;box-sizing:border-box;background:conic-gradient(#7b4d5b var(--dial-progress),#e7dcd5 0);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;box-shadow:0 9px 26px #5d403914}
+.reminder-dial:active{cursor:grabbing}.reminder-dial:focus-visible{outline:2px solid #7b4d5b;outline-offset:5px}
+.reminder-dial>div{height:100%;border-radius:50%;background:#fffdfb;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:inset 0 0 0 8px #f7f2ed}
+.reminder-dial small{font-size:13px;color:#8a766e}.reminder-dial strong{font-size:31px;font-weight:400;color:#744957;line-height:1.8}.reminder-dial span{font-size:10px;color:#ad9990}
+.dial-plus{position:absolute;bottom:2px;right:calc(50% - 134px);width:46px;height:46px;border:4px solid #fbf9f7;border-radius:50%;background:#7b4d5b;color:#fff;font-size:26px;line-height:1;box-shadow:0 4px 12px #7b4d5b20}
+.dial-stepper{display:flex;align-items:center;justify-content:center;gap:16px;margin:18px 0 24px}.dial-stepper button{width:44px;height:44px;flex:none;border:1px solid #e4d6cf;border-radius:50%;background:#fffdfb;color:#7b4d5b;font-size:21px}
+.dial-stepper label{text-align:center;font-size:10px}.dial-stepper input{width:100px;min-height:36px;text-align:center;margin-top:3px;padding:7px;border-radius:10px}
+.effect-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;border:1px solid #e9dfd8;background:#e9dfd8;border-radius:14px;overflow:hidden;margin:16px 0}
+.effect-summary span{background:#fffdfb;padding:12px 14px;font-size:11px;color:#9b857d}.effect-summary b{display:block;color:#744957;margin-top:5px;font-size:16px;font-weight:400}
+.reminder-editor .setting-row{background:#fffdfb;border-radius:12px;padding:13px 14px;min-height:48px;width:100%}.reminder-editor h3{font-weight:400;font-size:17px}
+.reminder-rule{display:flex;align-items:center;background:#fffdfb;border:1px solid #e9dfd8;border-radius:14px;margin:8px 0}.reminder-rule>button{background:transparent;border:0;text-align:left;padding:14px}.reminder-rule>button:first-child{flex:1;min-width:0}.reminder-rule strong{font-size:22px;font-weight:400;color:#744957}.reminder-rule small{display:block;color:#9c8881;font-size:11px;line-height:1.6;margin-top:4px}.reminder-rule [aria-pressed=false]{opacity:.65}
+.weekday-picker{display:flex;gap:5px;margin:16px 0}.weekday-picker button{flex:1;min-width:0;min-height:40px;border:0;border-radius:50%;background:#eee8e2;color:#8a766e;padding:0}
+.reminder-actions{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin:20px 0 10px}.reminder-actions button{margin:0;width:100%;min-height:48px;border-radius:14px}.reminder-capability,.reminder-duration{font-size:11px;margin:10px 0}.reminder-duration{background:transparent}
+.dose-row.status-taken{background:#f0f5ee;border-left:3px solid #789378}.dose-row .badge.taken,.badge.taken{background:#dfebdd;color:#4c704d}
+.dose-row.status-scheduled{background:#fffaf7;border-left:3px solid #9b6372}.dose-row .badge.scheduled,.badge.scheduled{background:#f1e1e6;color:#804556}
+.dose-row.status-snoozed{background:#fff8ee;border-left:3px solid #c39a5b}.dose-row .badge.snoozed,.badge.snoozed{background:#f4e5ca;color:#916b32}
+.dose-row.status-skipped{background:#f1eeeb;border-left:3px solid #b1a6a0}.dose-row .badge.skipped,.badge.skipped{background:#e6dfda;color:#80746d}
+.status-taken .dose-check{background:#6f8e70;border-color:#6f8e70;color:white}.status-snoozed .dose-check{background:#f4e5ca;border-color:#ddc59d;color:#916b32}.status-skipped .dose-check{background:#e6dfda;border-color:#c9bdb5;color:#80746d}
+.next-card.plan-complete{background:#edf3ea;border-color:#d8e5d4;color:#4c704d}.plan-complete .clock-orb{background:#dfeadb;color:#5f805e}.next-card.plan-complete strong{color:#4c704d}
+.next-card.plan-pending{background:#f7ecee;border-color:#ead7dd}.plan-pending .clock-orb{background:#ecdde2;color:#804556}.next-card.plan-pending strong{color:#804556}
+.next-card.plan-empty{background:#f2eeea;color:#9b8a80}.dose-focus.status-taken>svg{color:#5f805e}.dose-focus.status-snoozed>svg{color:#a47a3d}.dose-focus.status-skipped>svg{color:#92867e}
+.action-grid button:first-child{background:#7b4d5b;color:white}
+.wearable-device-card{padding:20px;border-radius:18px;border:1px solid var(--line);background:#fffdfb;margin:0 0 16px}
+.wearable-device-card strong{display:block;font-size:22px;line-height:1.4;margin:6px 0}
+.wearable-device-card small{color:var(--muted);font-size:12px;line-height:1.7}
+.wearable-feedback{padding:12px 14px;border-radius:12px;background:#f3e9e8;color:#744957;font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+.wearable-advanced-body{padding-top:4px}.wearable-advanced-body>.wearable-settings-group{margin:12px 0}
+.health-filter-options{border:1px solid var(--line);padding:10px 13px;border-radius:12px;background:#fffdfb;margin:12px 0}
+.health-filter-options summary{cursor:pointer;font-size:12px;color:#8b5e6b}
+.health-filter-options[open] summary{margin-bottom:12px}
+.health-filter-options select{box-sizing:border-box;width:100%;max-width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;background:#fbf9f7;color:var(--ink);padding:10px;font-size:12px;margin:6px 0 12px}
+@media(max-width:480px){.phone{height:100dvh;min-height:0}.topbar{padding-top:calc(16px + env(safe-area-inset-top));height:calc(60px + env(safe-area-inset-top));min-height:calc(60px + env(safe-area-inset-top))}dialog{padding:20px;width:calc(100vw - 28px)}.panel-head{margin-bottom:20px}.health-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Shared readable foregrounds for cream surfaces and selected controls. */
+:root{--muted:#705e58;--on-accent:#fffaf5;--status-green:#3e5d3f;--status-amber:#765020;--status-gray:#675a53}
+.wordmark span,.local-tag,.tabs button,.arrow,.device-card small,.segmented button,
+.form-field,.quick-hint,.reminder-dial small,.reminder-dial span,.dial-tabs button,.weekday-picker button,
+.effect-summary span,.reminder-rule small,.helper{color:var(--muted)}
+.quick button.is-off,.quick button.is-off b,.quick button.is-off small,.quick button.is-off svg{color:var(--muted)}
+.tabs button.active,.segmented button.selected{color:#744957}
+.quick button.is-on,.quick button.is-on b,.quick button.is-on small,.quick button.is-on svg,
+.dial-tabs button.selected,.weekday-picker button.selected,.health-period-tabs button[aria-pressed=true]{color:var(--on-accent)}
+.primary,.add,.dial-plus,.adherence-ring b{color:var(--on-accent)}
+.next-card.plan-pending{color:#804556}
+.next-card.plan-empty{color:var(--muted)}
+.next-card small,.next-card span span{opacity:1}
+.next-card>b{color:inherit;background:#fff9}
+.dose-row .badge.taken,.badge.taken{color:var(--status-green)}
+.dose-row .badge.snoozed,.badge.snoozed{color:var(--status-amber)}
+.dose-row .badge.skipped,.badge.skipped{color:var(--status-gray)}
+.status-skipped .dose-check{color:var(--status-gray)}
+.reminder-rule [aria-pressed=false]{opacity:1}
+button:disabled,.quick button[aria-busy=true]{opacity:1;color:var(--muted);background:#e8dfda;cursor:default}
+button:disabled small,button:disabled b,button:disabled svg{color:inherit}
+.quick button[aria-busy=true] b,.quick button[aria-busy=true] small,.quick button[aria-busy=true] svg{color:inherit}
+.reminder-target-heading{margin:20px 0 10px}
+.reminder-targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;background:#eee6e0;border-radius:18px;padding:5px;margin:10px 0 15px}
+.reminder-targets button{min-height:44px;border:0;border-radius:14px;padding:9px 5px;background:transparent;color:var(--muted);font-size:13px}
+.reminder-targets button[aria-pressed=true]{background:var(--blue2);color:var(--on-accent)}
+.reminder-target-card{padding:18px;margin-bottom:22px;text-align:left}
+.reminder-target-card h3{margin:12px 0 8px;font-size:18px;font-weight:400;color:var(--ink)}
+.reminder-target-card .helper{line-height:1.7;margin:10px 0}
+.reminder-target-badge{display:inline-block;padding:6px 10px;border-radius:10px;background:#eee5df;color:var(--ink);font-size:12px}
+.reminder-readiness-link{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;background:transparent;border:0;color:var(--muted);padding:10px 3px;text-align:left;font-size:13px}
+.readiness-step+.readiness-step{border-top:1px solid #e5d9d1;padding-top:14px;margin-top:18px}
+.readiness-step-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.readiness-step-heading h3{margin:6px 0}
+.readiness-state{flex-shrink:0;padding:5px 9px;border-radius:9px;font-size:12px}
+.readiness-state.ready{background:#e3ebe0;color:#3e5d3f}
+.readiness-state.needed{background:#f2e4dd;color:#804556}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+.wearable-summary-card>small,.wearable-trend summary span,.wearable-chart-column>small,
+.surface.health-record-group summary span,.surface.health-record-group .health-record small,
+.health-date-control>label,.health-period-tabs button,.health-type-filter,
+.health-timeline-day h3 small,.health-timeline-item>time,.health-timeline-item small,
+.wearable-summary-card strong.health-not-synced{color:var(--muted)}

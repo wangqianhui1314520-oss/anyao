@@ -1,0 +1,19 @@
+{
+  "name": "anyao-windows-adaptation",
+  "version": "0.4.6",
+  "private": true,
+  "productName": "安药",
+  "description": "安药 0.4.6 Windows 适配版：保留原 H5 与药盒协议，并联动 PILLBANK 展示网站",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "node ../../pillbank/desktop/node_modules/electron/cli.js .",
+    "test": "node --test --test-isolation=none",
+    "prepare:assets": "python scripts/prepare-assets.py",
+    "verify:assets": "python scripts/prepare-assets.py --verify",
+    "preflight": "python scripts/build-portable.py",
+    "build:portable": "python scripts/build-portable.py --build"
+  },
+  "devDependencies": {
+    "electron": "33.2.0"
+  }
+}

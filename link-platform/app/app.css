@@ -1,0 +1,1084 @@
+/* ==========================================================================
+   安药 · 应用层（app.css）
+
+   这一层只负责“把规范里的组件摆成安药的页面”：外壳、页面标题、指标卡、
+   服药行、记录与提醒的业务布局。颜色、字号、圆角、动效一律取自 mira.css 的令牌，
+   图片与字体取自 assets.css，这里不出现新的色值与字号。
+   ========================================================================== */
+
+/* ---------- 1. 外壳 ---------- */
+
+.app-shell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  padding: 24px 16px;
+}
+
+.phone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 430px);
+  height: min(880px, calc(100dvh - 48px));
+  background: var(--m-floor);
+  border-radius: 34px;
+  box-shadow: var(--elev-3);
+  overflow: hidden;
+}
+
+.view {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: calc(16px + var(--sat, env(safe-area-inset-top))) 12px 28px;
+  overscroll-behavior: contain;
+}
+
+/* 两端共用的同步状态始终可见；单独更新，不会改动正在填写的表单。 */
+.sync-banner { flex: none; width: 100%; display: flex; align-items: center; gap: 9px; padding: calc(9px + var(--sat, env(safe-area-inset-top))) 16px 9px; text-align: start; background: var(--m-bar); border-bottom: 1px solid var(--m-divider); color: var(--th-fg); }
+.sync-banner > span:nth-child(2) { flex: 1; min-width: 0; }
+.sync-banner strong { display: block; font-size: var(--m-text-sub); font-weight: var(--font-weight-medium); line-height: 1.35; }
+.sync-banner small { display: block; margin-top: 2px; color: var(--th-fg-5); font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; }
+.sync-banner .sync-server { font-variant-numeric: tabular-nums; }
+.sync-state-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--th-fg-5); }
+.sync-banner[data-tone="online"] .sync-state-dot { background: var(--th-badge-ok-text); }
+.sync-banner[data-tone="offline"] .sync-state-dot, .sync-banner[data-tone="pending"] .sync-state-dot { background: var(--th-badge-err-text); }
+.sync-banner + .view { padding-top: 12px; }
+.sync-status-summary { padding: 14px; margin-bottom: 12px; }
+.sync-status-summary strong { display: block; font-size: var(--m-text-body); }
+.sync-status-summary p { margin-top: 5px; color: var(--th-fg-5); font-size: var(--m-text-sub); overflow-wrap: anywhere; }
+.sync-status-summary[data-tone="offline"] strong, .sync-status-summary[data-tone="pending"] strong { color: var(--th-badge-err-text); }
+.sync-tools { display: flex; gap: 10px; margin-bottom: 16px; }
+.sync-tools .secondary-btn { flex: 1; min-width: 0; margin-top: 0; }
+.sync-bootstrap { display: flex; align-items: flex-start; gap: 10px; margin: 16px 2px 4px; font-size: var(--m-text-sub); line-height: 1.5; }
+.sync-bootstrap input { flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--brand-cta); }
+.sync-bootstrap small { display: block; margin-top: 4px; color: var(--th-fg-5); font-size: 12px; }
+
+/* 页面切换与浮层用同一条入场关键帧（mira.css 的 m-surface-in） */
+.page {
+  --enter-x: var(--enter-shift);
+  animation: m-surface-in var(--dur-in) var(--ease-out);
+}
+
+/* 底导航：图标在上、11sp 标签在下，选中只用品牌色，没有指示条与底衬 */
+.tabbar {
+  flex: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  height: var(--mi-nav-height);
+  padding-bottom: var(--sab, env(safe-area-inset-bottom));
+  background: var(--m-bar);
+  border-top: 1px solid var(--m-divider);
+}
+.tabbar button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--mi-nav-label);
+  font-size: var(--m-text-caption);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.tabbar button:active, .tabbar button.is-pressed { opacity: .7; }
+.tab-icon {
+  display: block;
+  width: var(--mi-nav-icon);
+  height: var(--mi-nav-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.tabbar button[aria-current="page"] { color: var(--brand-cta); }
+
+@media (max-width: 520px) {
+  .app-shell { padding: 0; }
+  .phone {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ---------- 2. 页面骨架 ---------- */
+
+/* 一级标题：32sp 轻字重，标题左缘比卡片再多 14px（与原页一致） */
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 52px;
+  padding: 4px 4px 4px 14px;
+}
+.page-heading h1 {
+  font-family: var(--font-title);
+  font-size: var(--m-text-title);
+  font-weight: var(--font-weight-light);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+.page-heading .leading { min-width: 0; }
+.page-heading-actions { display: flex; align-items: center; gap: 2px; }
+/* 页头动作直接复用原 App 的页头图标资产 */
+.head-icon { width: 24px; height: 24px; background: no-repeat center/contain; }
+.head-icon[data-mi="header-message"] { background-image: var(--mi-a-header-message); }
+.head-icon[data-mi="header-add"] { background-image: var(--mi-a-header-add); }
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 2px 8px;
+}
+.section-heading h2, .section-heading h3, .section-heading span {
+  font-size: var(--m-text-caption);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.3;
+  color: var(--th-fg-5);
+}
+.section-heading button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: -13px -8px -13px 0;
+  padding: 0 8px;
+  color: var(--brand-cta-ink);
+  font-size: var(--m-text-value);
+}
+
+.helper {
+  margin: 8px 2px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  line-height: 1.45;
+}
+p.helper:empty { display: none; }
+.empty {
+  margin: 0;
+  padding: 20px 14px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  text-align: center;
+}
+.mono { font-family: "MiSansLatin", var(--font-sans); font-variant-numeric: tabular-nums; }
+
+/* 分组卡片的别名：模块里一直用 .surface */
+.surface { background: var(--m-card); border-radius: var(--radius-surface); overflow: hidden; }
+
+/* ---------- 3. 行 ---------- */
+
+/* 功能行：左标题 16 加粗 + 说明 12，右侧值 14 + 箭头，与原 App 的功能行一致 */
+.menu-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 58px;
+  padding: 12px 14px;
+  color: var(--th-fg);
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.menu-row + .menu-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: var(--row-inset, 14px) 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.menu-row:active, .menu-row.is-pressed { background: var(--layer-active); transform: scale(.985); }
+.menu-row[data-lead="icon"] { --row-inset: 52px; }
+.row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  color: var(--th-fg-5);
+}
+.row-body { flex: 1; min-width: 0; }
+.row-body strong {
+  display: block;
+  font-size: var(--m-text-headline);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.row-body small {
+  display: block;
+  margin-top: 3px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+/* 行右侧一律用原 App 的箭头资产 */
+.arrow {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background: var(--mi-a-chevron) no-repeat center/contain;
+}
+
+/* 设置行：左侧文案 + 右侧开关 / 分段 */
+.setting-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 12px 14px;
+  color: var(--th-fg);
+  text-align: start;
+  transition: background-color var(--dur-1) var(--ease-out);
+}
+.setting-row + .setting-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 14px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.setting-row:active, .setting-row.is-pressed { background: var(--layer-active); }
+.setting-row > span:first-child {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--m-text-headline);
+  font-weight: var(--font-weight-bold);
+}
+.setting-row small {
+  display: block;
+  margin-top: 3px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.35;
+}
+.setting-row .m-quiet { margin-top: 3px; }
+
+/* 分段控件的别名：模块里一直用 .segmented / .selected */
+.segmented {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: var(--layer-selected);
+  border-radius: var(--radius-lg);
+  padding: 2px;
+}
+.segmented button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-md);
+  color: var(--th-fg-5);
+  font-size: var(--m-text-value);
+  text-align: center;
+  transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.segmented button.selected {
+  background: var(--surface-elev);
+  color: var(--brand-cta-ink);
+  font-weight: var(--font-weight-medium);
+  box-shadow: 0 1px 2px #00000014;
+}
+
+/* 开关的别名：模块里一直用 .switch / .switch.on */
+.switch {
+  position: relative;
+  flex: none;
+  width: 45px;
+  height: 25px;
+  border-radius: 13px;
+  background: var(--layer-selected);
+  transition: background-color var(--dur-2) var(--ease-out);
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px #00000029;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+.switch.on { background: var(--brand-cta); }
+.switch.on::after { transform: translateX(20px); }
+
+/* ---------- 4. 按钮别名 ---------- */
+
+.primary, .secondary-btn, .danger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 46.66px;
+  margin-top: 12px;
+  padding: 0 16px;
+  border-radius: var(--radius-2xl);
+  font-size: var(--m-text-body);
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out), opacity var(--dur-1) var(--ease-out);
+}
+.primary { background: var(--brand-cta); color: var(--brand-cta-fg); }
+.secondary-btn { background: var(--layer-selected); color: var(--th-fg-2); }
+.danger-btn { background: var(--th-badge-err-bg); color: var(--th-badge-err-text); }
+.primary svg, .secondary-btn svg, .danger-btn svg { width: 18px; height: 18px; }
+.primary:active, .primary.is-pressed { background: var(--brand-cta-press); transform: scale(.985); }
+.secondary-btn:active, .secondary-btn.is-pressed { background: var(--layer-active); transform: scale(.985); }
+.danger-btn:active, .danger-btn.is-pressed { transform: scale(.985); opacity: .8; }
+.primary[disabled], .secondary-btn[disabled], .danger-btn[disabled] { opacity: .4; pointer-events: none; }
+
+.add {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-2xl);
+  background: var(--brand-cta-soft);
+  color: var(--brand-cta-ink);
+  font-size: var(--m-text-value);
+  font-weight: var(--font-weight-medium);
+  transition: transform var(--dur-1) var(--ease-out);
+}
+.add svg { width: 17px; height: 17px; }
+.add:active, .add.is-pressed { transform: scale(.985); }
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  color: var(--th-fg);
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.icon-button svg { width: 20px; height: 20px; }
+.icon-button:active, .icon-button.is-pressed { background: var(--layer-active); transform: scale(.94); }
+
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.action-grid button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46.66px;
+  padding: 0 12px;
+  border-radius: var(--radius-2xl);
+  background: var(--layer-selected);
+  color: var(--th-fg-2);
+  font-size: var(--m-text-value);
+  text-align: center;
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.action-grid button:active, .action-grid button.is-pressed { background: var(--layer-active); transform: scale(.985); }
+.action-grid button[data-status="taken"] {
+  background: var(--brand-cta);
+  color: var(--brand-cta-fg);
+  font-weight: var(--font-weight-medium);
+}
+.action-grid button[disabled] { opacity: .4; pointer-events: none; }
+
+/* 页面末尾的固定动作：与设置页底部的实心主按钮同宽同高 */
+.page-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 336px;
+  min-height: 46.66px;
+  margin: 24px auto 0;
+  padding: 0 16px;
+  border-radius: var(--radius-2xl);
+  background: var(--brand-cta);
+  color: var(--brand-cta-fg);
+  font-size: 17px;
+  font-weight: var(--font-weight-bold);
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.page-action:active, .page-action.is-pressed { background: var(--brand-cta-press); transform: scale(.985); }
+
+/* ---------- 5. 今天 ---------- */
+
+/* 顶部渐变带：原健康页 hero 的浅色背景，铺在标题与第一张卡后面 */
+.today-head {
+  position: relative;
+  margin: calc(-16px - var(--sat, env(safe-area-inset-top))) -12px 0;
+  padding: calc(16px + var(--sat, env(safe-area-inset-top))) 12px 8px;
+  background: var(--mi-a-hero-band) center top/100% 100% no-repeat;
+}
+
+/* 标题下的一句副标题（日期 / 说明） */
+.page-sub { display: block; margin-top: 2px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+
+/* “今天这一顿”是分组卡片的业务变体，只补状态取色与主要动作 */
+.take-card { margin-top: 10px; padding: 18px 16px; }
+.take-card[data-level="due"],
+.take-card[data-level="missed"] { background: var(--th-badge-err-bg); }
+.take-card[data-level="delay"] { background: var(--th-badge-warn-bg); }
+.take-label { color: var(--th-fg-5); font-size: var(--m-text-value); }
+.take-card[data-level="due"] .take-label,
+.take-card[data-level="missed"] .take-label { color: var(--th-badge-err-text); font-weight: var(--font-weight-medium); }
+.take-card[data-level="delay"] .take-label { color: var(--th-badge-warn-text); font-weight: var(--font-weight-medium); }
+.take-time {
+  margin-top: 2px;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-hero);
+  font-weight: var(--font-weight-semibold, 600);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.take-name { margin-top: 6px; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); overflow-wrap: anywhere; }
+.take-name span { margin-left: 8px; color: var(--th-fg-5); font-size: var(--m-text-value); font-weight: var(--font-weight-normal); }
+.take-note { margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+/* 老人端的主要动作：64px 高的大按钮 */
+.mega-btn { width: 100%; min-height: 64px; margin-top: 16px; font-size: 19px; gap: 8px; border-radius: var(--radius-2xl); }
+.mega-btn svg { width: 24px; height: 24px; }
+
+/* 指标卡：等宽三列（图标 + 标签 / 数值 / 补充），下面接一条可钻取的功能行 */
+.metric-card { margin-top: 12px; padding: 16px 12px 0; }
+.metric-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.metric { min-width: 0; padding-inline: 4px; }
+.metric-label { display: flex; align-items: center; gap: 4px; color: var(--th-fg); font-size: var(--m-text-metric-label); font-weight: var(--font-weight-medium); }
+.metric-label .mi-ico { width: 18px; height: 18px; }
+.metric-value {
+  display: block;
+  margin-top: 8px;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-metric);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  /* 三列共用同一条数值行高：空态的短横线不会把这一行顶偏 */
+  line-height: var(--m-metric-line);
+}
+.metric-value[data-tone="quiet"] { font-size: var(--m-text-headline); color: var(--th-fg-5); font-weight: var(--font-weight-normal); }
+.metric-target { display: block; margin-top: 4px; color: var(--th-fg-5); font-size: var(--m-text-sub); font-weight: 600; overflow-wrap: anywhere; }
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(100% + 24px);
+  min-height: 58px;
+  margin: 18px -12px 0;
+  padding: 12px 14px;
+  border-top: 1px solid var(--m-divider);
+  color: var(--th-fg);
+  font-size: var(--m-text-value);
+  transition: background-color var(--dur-1) var(--ease-out);
+}
+.metric-row:active, .metric-row.is-pressed { background: var(--layer-active); }
+.metric-row .metric-row-text { flex: 1; min-width: 0; }
+.metric-row .metric-row-text strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--brand-cta-soft);
+  color: var(--th-fg-2);
+  font-size: var(--m-text-sub);
+  border-radius: var(--radius-surface);
+}
+.notice svg { flex: none; width: 20px; height: 20px; color: var(--brand-cta-ink); }
+
+/* 服药行：时间 + 药名剂量 + 状态 + 右侧的大圆圈 */
+.dose-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 6px;
+}
+.dose-row + .dose-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 14px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.dose-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px 0 10px 14px;
+  transition: background-color var(--dur-1) var(--ease-out);
+}
+.dose-main:active, .dose-main.is-pressed { background: var(--layer-hover); }
+.dose-time {
+  flex: none;
+  width: 48px;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-body);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--th-fg);
+}
+.dose-copy { flex: 1; min-width: 0; }
+.dose-copy strong {
+  display: block;
+  font-size: var(--m-text-headline);
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+.dose-copy small {
+  display: block;
+  margin-top: 3px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  overflow-wrap: anywhere;
+}
+.dose-state { flex: none; color: var(--th-fg-5); font-size: var(--m-text-value); white-space: nowrap; }
+.dose-row[data-level="taken"] .dose-state,
+.dose-row[data-level="late"] .dose-state { color: var(--th-badge-ok-text); }
+.dose-row[data-level="due"] .dose-state,
+.dose-row[data-level="missed"] .dose-state { color: var(--th-badge-err-text); font-weight: var(--font-weight-medium); }
+.dose-row[data-level="delay"] .dose-state { color: var(--th-badge-warn-text); }
+.dose-check {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: var(--th-fg-4);
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.dose-check svg { width: 26px; height: 26px; }
+.dose-check:active, .dose-check.is-pressed { background: var(--layer-active); transform: scale(.94); }
+.dose-check[data-state="taken"] { color: var(--brand-cta); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--m-text-sub);
+  white-space: nowrap;
+}
+.badge.taken { color: var(--th-badge-ok-text); background: var(--th-badge-ok-bg); }
+.badge.scheduled { color: var(--th-badge-err-text); background: var(--th-badge-err-bg); }
+.badge.snoozed { color: var(--th-badge-warn-text); background: var(--th-badge-warn-bg); }
+.badge.skipped { color: var(--th-badge-muted-text); background: var(--th-badge-muted-bg); border-color: var(--th-badge-muted-border); }
+
+.dose-focus {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 20px 14px 4px;
+  text-align: center;
+}
+.dose-focus .row-icon { width: 46px; height: 46px; }
+.dose-focus .row-icon .mi-ico { width: 32px; height: 32px; }
+.dose-name { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.dose-focus h3 {
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: 34px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+.dose-focus p { color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.dose-actions { display: grid; gap: 10px; margin-top: 16px; }
+.dose-actions .primary, .dose-actions .secondary-btn { margin-top: 0; }
+
+/* 服药时间：每一次实际吃药的时间列表（今天 / 昨天 / 更早） */
+.time-group + .time-group { margin-top: 20px; }
+.time-row {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 13px 14px;
+}
+.time-row + .time-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 14px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.time-row b {
+  flex: none;
+  min-width: 52px;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-body);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.time-row span { flex: 1; min-width: 0; }
+.time-row strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); overflow-wrap: anywhere; }
+.time-row small { display: block; margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.time-row[data-level="missed"] strong, .time-row[data-level="due"] strong { color: var(--th-badge-err-text); }
+
+/* ---------- 6. 用药与库存 ---------- */
+
+.inventory-total {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 16px 14px;
+}
+.inventory-total strong { font-family: "MiSansLatin", var(--font-sans); font-size: 30px; font-weight: 600; }
+.inventory-total span { color: var(--th-fg-5); font-size: var(--m-text-value); }
+
+.detail-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 14px;
+}
+.detail-hero strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.detail-hero small { display: block; margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+
+.detail-list > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 14px;
+}
+.detail-list > div + div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 14px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.detail-list span { color: var(--th-fg-5); font-size: var(--m-text-value); }
+.detail-list b { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+
+.record-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(56px, max-content) 1fr;
+  gap: 12px;
+  padding: 13px 14px;
+  align-items: baseline;
+}
+.record-row + .record-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 14px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.record-row > b { color: var(--th-fg-5); font-size: var(--m-text-value); font-weight: var(--font-weight-normal); white-space: nowrap; }
+.record-row span strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); overflow-wrap: anywhere; }
+.record-row span small { display: block; margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); overflow-wrap: anywhere; }
+.record-row[data-level="missed"] span strong,
+.record-row[data-level="due"] span strong { color: var(--th-badge-err-text); }
+
+/* ---------- 7. 记录：依从性与月历 ---------- */
+
+.adherence-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 18px 16px;
+}
+.adherence-main { min-width: 0; }
+.adherence-main .adherence-count {
+  display: block;
+  margin: 0 0 3px;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: 30px;
+  font-weight: 600;
+}
+.adherence-main .adherence-count em { font-family: var(--font-sans); font-size: var(--m-text-sub); font-style: normal; font-weight: var(--font-weight-normal); color: var(--th-fg-5); margin-left: 4px; }
+.adherence-ring {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: conic-gradient(var(--brand-cta) 0 var(--rate, 0%), var(--layer-selected) var(--rate, 0%) 100%);
+}
+.adherence-ring::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--m-card);
+}
+.adherence-ring b {
+  position: relative;
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.calendar { padding: 14px 12px; }
+.calendar-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding-inline: 2px; }
+.calendar-head strong { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.calendar-head span { color: var(--th-fg-5); font-size: var(--m-text-value); }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-size: var(--m-text-sub);
+}
+.calendar-grid > span:not(.day) { padding: 4px 0; color: var(--th-fg-5); }
+.calendar-grid .day {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--th-fg-3);
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-sub);
+  font-variant-numeric: tabular-nums;
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+button.day:active, button.day.is-pressed { transform: scale(.94); }
+.calendar-grid .day.good { color: var(--th-badge-ok-text); background: var(--th-badge-ok-bg); }
+.calendar-grid .day.current { color: var(--th-badge-err-text); background: var(--th-badge-err-bg); }
+.calendar-grid .day.missed { color: var(--th-fg-5); background: var(--th-badge-muted-bg); }
+
+/* ---------- 8. 提醒 ---------- */
+
+.mode-value {
+  max-width: 9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-value);
+}
+
+.quick { display: grid; }
+
+/* 设备卡：示意图 + 名称 + 连接按钮 */
+.device-hero { margin-bottom: 12px; }
+.device-art {
+  display: grid;
+  place-items: center;
+  padding: 18px 16px 8px;
+  background: var(--surface-1);
+}
+.device-art svg { display: block; width: 100%; max-width: 214px; height: auto; }
+.device-art .d-body { fill: var(--m-card); stroke: var(--edge-default); stroke-width: 1.5; }
+.device-art .d-screen { fill: var(--brand-cta-soft); }
+.device-art .d-card { fill: var(--m-card); stroke: var(--edge-subtle); stroke-width: 1; }
+.device-art .d-soft { fill: var(--layer-selected); }
+.device-art .d-bar { fill: var(--th-fg-5); }
+.device-art .d-line { stroke: var(--th-fg-5); stroke-width: 2.5; fill: none; }
+.device-art .d-dot, .device-art .d-accent { fill: var(--brand-cta); }
+.device-art .d-capsule { fill: var(--brand-cta); }
+.device-art .d-chip { fill: var(--edge-strong); }
+.device-art .d-shadow { fill: var(--layer-hover); }
+.device-art .d-strap { fill: none; stroke: var(--edge-strong); stroke-width: 9; stroke-linecap: round; }
+.device-hero-body { display: grid; justify-items: start; gap: 6px; padding: 16px 14px; }
+.device-hero-body h3 { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); line-height: 1.3; }
+.device-hero-body .helper { margin: 0; }
+.device-hero-body .m-btn { margin-top: 4px; }
+.reminder-system-warning { margin: 10px 0 0; padding: 10px 12px; border-radius: var(--radius-2xl); color: var(--th-badge-warn-text); background: var(--th-badge-warn-bg); font-size: var(--m-text-sub); }
+.reminder-system-warning:empty { display: none; }
+.reminder-readiness-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--m-divider);
+  color: var(--th-fg-2);
+  font-size: var(--m-text-body);
+}
+.reminder-readiness-link:active, .reminder-readiness-link.is-pressed { background: var(--layer-hover); }
+.reminder-readiness-link span { color: var(--th-fg-5); font-size: var(--m-text-value); }
+.reminder-target-card { padding: 16px 14px; }
+.reminder-target-card h3 { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.reminder-target-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--th-badge-muted-bg);
+  color: var(--th-badge-muted-text);
+  font-size: var(--m-text-sub);
+}
+.reminder-target-card .action-grid { margin-top: 12px; }
+.reminder-targets-intro { padding: 12px 14px 0; margin: 0; }
+.reminder-target-row[disabled] { opacity: .5; cursor: default; }
+.reminder-target-row[disabled]:active { background: transparent; }
+.readiness-step { position: relative; padding: 13px 0; }
+.readiness-step + .readiness-step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.readiness-step-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.readiness-step-heading h3 { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.readiness-state { flex: none; padding: 2px 8px; border-radius: var(--radius-sm); font-size: var(--m-text-sub); }
+.readiness-state.ready { color: var(--th-badge-ok-text); background: var(--th-badge-ok-bg); }
+.readiness-state.needed { color: var(--th-badge-warn-text); background: var(--th-badge-warn-bg); }
+
+/* ---------- 9. 智能药盒 ---------- */
+
+.pillbox-entry { display: flex; align-items: center; gap: 10px; padding-right: 12px; }
+.pillbox-entry .menu-row { flex: 1; }
+.pillbox-state { flex: none; color: var(--th-fg-5); font-size: var(--m-text-value); }
+.pillbox-state.ready { color: var(--th-badge-ok-text); }
+.device-card, .pillbox-choices, .pillbox-actions, .pillbox-records, .pillbox-details { padding: 16px 14px; margin-top: 12px; }
+.pillbox-device h3, .pillbox-choices h3, .pillbox-actions h3 { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); margin-bottom: 8px; }
+.device-connect { padding: 6px 16px 0; }
+.device-connect > .surface:first-child { margin-top: 0; }
+.device-steps {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  line-height: 1.55;
+}
+.device-steps li + li { margin-top: 6px; }
+.pillbox-slots { margin-top: 10px; border-top: 1px solid var(--m-divider); }
+.pillbox-slots > div { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pillbox-slots > div + div::before { content: ""; position: absolute; top: 0; inset-inline: 0; height: 1px; background: var(--m-divider); }
+.pillbox-slots button { min-height: 44px; padding: 0 8px; color: var(--brand-cta-ink); font-size: var(--m-text-value); }
+.pillbox-feedback { margin: 10px 2px; color: var(--th-badge-warn-text); font-size: var(--m-text-sub); }
+.pillbox-feedback:empty { display: none; }
+.pillbox-time-fields { padding: 4px 14px; }
+.pillbox-time-fields label { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pillbox-time-fields input { min-height: 46px; padding: 8px 12px; border: 1px solid var(--edge-subtle); border-radius: var(--radius-2xl); background: var(--surface-1); font-family: "MiSansLatin", var(--font-sans); }
+.pillbox-plan > .helper { margin-top: 10px; }
+.pillbox-plan-notes, .pillbox-details { color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pillbox-plan-notes summary, .pillbox-details summary { min-height: 46px; display: flex; align-items: center; font-size: var(--m-text-body); color: var(--th-fg-2); }
+.pillbox-details pre { overflow: auto; padding: 12px; border-radius: var(--radius-2xl); background: var(--surface-1); font-family: var(--font-sans); font-size: var(--m-text-sub); }
+.pillbox-timeline article { position: relative; display: grid; grid-template-columns: 68px 1fr; gap: 10px; padding: 12px 0; }
+.pillbox-timeline article + article { border-top: 1px solid var(--m-divider); }
+.pillbox-timeline time { color: var(--th-fg-5); font-family: "MiSansLatin", var(--font-sans); font-size: var(--m-text-value); }
+.pillbox-timeline strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-normal); }
+.pillbox-timeline small { display: block; margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pillbox-timeline details { grid-column: 2; margin-top: 6px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pillbox-timeline details p { margin-top: 6px; overflow-wrap: anywhere; }
+.pillbox-timeline code { display: block; margin-top: 6px; overflow-wrap: anywhere; font-family: var(--font-sans); }
+
+/* ---------- 10. 面板与对话框内部 ---------- */
+
+.panel-body > .m-section:first-child, .panel-body > .section-heading:first-child { margin-top: 6px; }
+.panel-body > .surface:first-child { margin-top: 6px; }
+.panel-body > .primary:first-child, .panel-body > .secondary-btn:first-child { margin-top: 6px; }
+.dialog-head { padding: 20px 16px 2px; }
+.dialog-head h2 { font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.dialog-head + .helper { margin: 6px 16px 0; }
+.dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
+.dialog-actions .m-btn { width: 100%; }
+.dialog-actions .m-btn:only-child { grid-column: 1 / -1; }
+.detail-hero + .detail-list { margin-top: 4px; }
+.panel-titles { flex: 1; min-width: 0; }
+.card-note { padding: 16px 14px 0; color: var(--th-fg-5); font-size: var(--m-text-sub); line-height: 1.45; }
+.card-actions { display: grid; gap: 10px; padding: 12px 14px 16px; }
+
+/* ---------- 11. 启动页与家属绑定 ---------- */
+
+.view-plain { display: flex; align-items: center; justify-content: center; }
+.entry { display: grid; gap: 24px; width: 100%; }
+.brand { display: grid; justify-items: center; gap: 14px; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-surface);
+  background: var(--brand-cta);
+  color: var(--brand-cta-fg);
+}
+.brand-mark svg { width: 40px; height: 40px; }
+.brand-name { font-family: var(--font-title); font-size: 32px; font-weight: var(--font-weight-light); }
+a.menu-row { text-decoration: none; }
+.entry .menu-row { min-height: 76px; padding-block: 16px; }
+
+/* 家属端首屏的绑定页：头像 + 标题 + 说明 + 表单 */
+.bind-screen { display: grid; justify-items: center; gap: 14px; padding: 30px 0 0; text-align: center; }
+.bind-screen .brand-mark { width: 64px; height: 64px; }
+.bind-screen .brand-mark svg { width: 32px; height: 32px; }
+/* 绑定页的默认头像：直接用原 App 的空状态头像资产 */
+.bind-photo { width: 76px; height: 76px; border-radius: 50%; background: var(--mi-a-avatar-guest) center/cover no-repeat; }
+.bind-title { font-family: var(--font-title); font-size: 26px; font-weight: var(--font-weight-light); }
+.bind-screen > .helper { text-align: center; }
+.bind-screen > form, .bind-screen > .secondary-btn { width: 100%; }
+.bind-screen > form { text-align: start; }
+.bind-screen .card-actions { padding: 6px 14px 14px; }
+.bind-screen .card-actions .primary { margin-top: 0; }
+
+/* 身份区：头像 + 姓名 + 说明，与原 App 我的页的资料区一致 */
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 14px 16px;
+}
+.profile-avatar {
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--mi-a-avatar) center/cover no-repeat;
+}
+.profile-body { flex: 1; min-width: 0; }
+.profile-body strong {
+  display: block;
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.profile-body small {
+  display: block;
+  margin-top: 2px;
+  color: var(--th-fg-5);
+  font-size: var(--m-text-sub);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 12. 药盒页 ---------- */
+
+.pill-slot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.pill-slot-card { min-width: 0; padding: 12px 10px 0; overflow: hidden; }
+.pill-slot-heading { display: flex; align-items: flex-start; gap: 7px; }
+.pill-slot-heading .box-slot-no { width: 25px; height: 25px; border-radius: var(--radius-md); font-size: var(--m-text-sub); }
+.pill-slot-heading > span:nth-child(2) { flex: 1; min-width: 0; }
+.pill-slot-heading strong { display: block; font-size: var(--m-text-body); line-height: 1.35; overflow-wrap: anywhere; }
+.pill-slot-heading small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.4; color: var(--th-fg-5); }
+.pill-slot-link { flex: none; color: var(--brand-cta-ink); padding: 0 0 8px; font-size: 12px; min-height: 34px; }
+.pill-slot-stock { margin-top: 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.pill-slot-stock > span { color: var(--th-fg-5); font-size: 12px; }
+.pill-slot-stock > strong { font-size: 22px; font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; }
+.pill-slot-counts { margin-top: 10px; display: grid; gap: 8px; }
+.pill-slot-counts > div > span { display: block; color: var(--th-fg-5); font-size: 12px; }
+.pill-slot-counts b { display: block; margin-top: 2px; font-size: 12px; font-weight: var(--font-weight-medium); line-height: 1.5; }
+.pill-slot-counts b small { color: var(--th-fg-5); font-size: inherit; padding-left: 3px; white-space: nowrap; }
+.pill-slot-last { margin-top: 10px; color: var(--th-fg-5); font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.pill-slot-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 10px; border-top: 1px solid var(--m-divider); }
+.pill-slot-actions button { min-width: 0; min-height: 44px; padding: 6px 1px; color: var(--brand-cta-ink); font-size: 12px; }
+.pill-slot-card button[disabled], .pill-scope-select select[disabled] { opacity: .4; cursor: default; }
+.pill-slot-help { margin-top: 10px; }
+.pill-scope-select { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: var(--m-text-sub); color: var(--th-fg-5); }
+.pill-scope-select select { flex: 1; min-width: 0; min-height: 42px; padding: 7px 10px; border: 1px solid var(--edge-subtle); border-radius: var(--radius-lg); background: var(--surface-1); color: var(--th-fg); font: inherit; }
+.pill-scope-note { display: flex; align-items: center; gap: 10px; margin-top: 8px; color: var(--th-fg-5); font-size: 12px; line-height: 1.4; }
+.pill-scope-note span { flex: 1; }
+.pill-scope-note button { color: var(--brand-cta-ink); min-height: 40px; max-width: 125px; text-align: end; }
+.pill-unassigned { width: 100%; margin-top: 12px; }
+.pill-unassigned small { display: block; margin-top: 3px; color: var(--th-fg-5); }
+.pill-slot-panel-head { display: flex; align-items: center; gap: 10px; margin: 6px 0 16px; }
+.pill-slot-panel-head > div { flex: 1; min-width: 0; }
+.pill-slot-panel-head strong { display: block; font-size: var(--m-text-headline); overflow-wrap: anywhere; }
+.pill-slot-panel-head small { display: block; color: var(--th-fg-5); font-size: var(--m-text-sub); margin-top: 3px; }
+.pill-slot-panel-head > b { color: var(--brand-cta-ink); font-size: var(--m-text-headline); }
+.pill-slot-journal article { padding: 12px 0; border-top: 1px solid var(--m-divider); }
+.pill-slot-journal article:first-child { border-top: 0; }
+.pill-slot-journal time { display: block; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pill-slot-journal strong { display: block; margin-top: 4px; font-size: var(--m-text-body); }
+.pill-slot-journal p { margin-top: 4px; color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.pill-unassigned-record { margin-top: 12px; padding: 14px; }
+.pill-unassigned-record .helper { margin: 4px 0 12px; }
+.pill-unassigned-record .secondary-btn { width: 100%; margin-top: 6px; }
+@media (max-width: 350px) { .pill-slot-grid { gap: 8px; } .pill-slot-heading { gap: 5px; } .pill-slot-heading strong { font-size: 14px; } .pill-slot-heading .box-slot-no { width: 20px; height: 23px; } .pill-slot-card { padding-inline: 8px; } }
+
+.box-card { margin-top: 12px; padding: 18px 16px; text-align: center; }
+.box-card[data-tone="open"] { background: var(--brand-cta-soft); }
+.box-card[data-pulse="true"] { animation: box-pulse var(--dur-4) var(--ease-out); }
+@keyframes box-pulse { from { transform: scale(.985); } to { transform: none; } }
+.box-art { display: block; margin: 0 auto; width: 150px; background: none; padding: 0; }
+.box-art svg { width: 100%; height: auto; }
+.box-card .box-label { margin-top: 10px; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.box-card .box-time { color: var(--th-fg-5); font-size: var(--m-text-sub); }
+.box-card .mega-btn { margin-top: 14px; }
+.box-card .m-btn { margin-top: 14px; }
+.box-art .d-lid { transform-box: fill-box; transform-origin: 50% 100%; transition: transform var(--dur-3) var(--ease-out); }
+.box-card[data-tone="open"] .box-art .d-lid,
+.box-card[data-pulse="true"] .box-art .d-lid { transform: translateY(-12px) rotate(-10deg); }
+
+.box-slot { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 14px; transition: background-color var(--dur-1) var(--ease-out); }
+.box-slot + .box-slot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 62px 0;
+  height: 1px;
+  background: var(--m-divider);
+}
+.box-slot[data-current] { background: var(--m-row-selected); }
+.box-slot-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-lg);
+  background: var(--layer-selected);
+  font-family: "MiSansLatin", var(--font-sans);
+  font-size: var(--m-text-body);
+}
+.box-slot-body { flex: 1; min-width: 0; }
+.box-slot-body strong { display: block; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); overflow-wrap: anywhere; }
+.box-slot-body strong .m-badge,
+.row-body strong .m-badge,
+.m-row-body strong .m-badge { margin-left: 6px; vertical-align: 1px; }
+.box-slot-body small { display: block; margin-top: 3px; color: var(--th-fg-5); font-size: var(--m-text-sub); font-weight: var(--font-weight-medium); }
+.box-slot[data-tone="taken"] .box-slot-body small { color: var(--th-badge-ok-text); }
+.box-slot[data-tone="due"] .box-slot-body small { color: var(--th-badge-err-text); }
+.box-slot[data-tone="taken"] .box-slot-no { color: var(--th-badge-ok-text); background: var(--th-badge-ok-bg); }
+.box-slot[data-tone="due"] .box-slot-no { color: var(--th-badge-err-text); background: var(--th-badge-err-bg); }
+
+/* ---------- 13. 家属端 ---------- */
+
+.family-summary { margin-top: 12px; padding: 18px 16px; }
+.family-count { display: flex; align-items: baseline; gap: 8px; }
+.family-count strong { font-family: "MiSansLatin", var(--font-sans); font-size: 38px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.family-count span { color: var(--th-fg-5); font-size: var(--m-text-value); }
+.family-state { margin-top: 4px; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.family-state.risky { color: var(--th-badge-err-text); }
+.family-state.ok { color: var(--th-badge-ok-text); }
+
+.alert-list { display: grid; gap: 12px; }
+.alert-card { padding: 16px 14px; }
+.alert-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.alert-head > b { font-family: "MiSansLatin", var(--font-sans); font-size: var(--m-text-headline); font-weight: 600; }
+.alert-drug { margin-top: 6px; font-size: var(--m-text-headline); font-weight: var(--font-weight-bold); }
+.alert-card .helper { margin: 4px 0 0; }
+.alert-card .action-grid button { font-size: var(--m-text-value); }
+.alert-card .action-grid svg { width: 18px; height: 18px; }

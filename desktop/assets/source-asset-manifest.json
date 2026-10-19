@@ -1,0 +1,88 @@
+{
+  "format": "anyao-original-h5-assets-1",
+  "originalAppVersion": "0.4.6",
+  "sourceApk": "C:\\Users\\Administrator\\Documents\\xwechat_files\\wxid_da9ufwp0hmmo29_e370\\msg\\file\\2026-10\\安药-0.4.6-药盒功能对齐版.apk",
+  "sourceApkSha256": "1603a364b46c17e2550184574ba7eedd69ad00d987ffc20e7fe61cb7c072dd77",
+  "sourceApkZipCrcVerified": true,
+  "fileCount": 9,
+  "files": [
+    {
+      "sourceApkEntry": "assets/app/bluetooth.js",
+      "desktopPath": "assets/bluetooth.js",
+      "bytes": 50315,
+      "crc32": "02e5db19",
+      "sha256": "9fb6d625cf6a10cbf3510710644e974f7553302ba5d0b9d425fd4896855b498b",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/enhancements.css",
+      "desktopPath": "assets/enhancements.css",
+      "bytes": 5214,
+      "crc32": "85a2c2c7",
+      "sha256": "366b4d36229bd42528a22ba6ea976b3b52ba88cf83f39a3d95315e2ba41e2c1b",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/index.html",
+      "desktopPath": "assets/index.html",
+      "bytes": 3234,
+      "crc32": "8ca5c5ab",
+      "sha256": "230570ca0ee24d5c7a0d033e597c610287fe46f7b5417b7192fa1b81640652fe",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/native-client.js",
+      "desktopPath": "assets/native-client.js",
+      "bytes": 4147,
+      "crc32": "89e9daa9",
+      "sha256": "e11f8f0f8684d644b2b8937570e0e29f42a6a5b964cf85f4745f9fba9afbbc6a",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/refined.css",
+      "desktopPath": "assets/refined.css",
+      "bytes": 28648,
+      "crc32": "47e47086",
+      "sha256": "1eff7eda1719b8f5ac70d9c605b4c84044a237eec1f284938b14f46d960091e1",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/reminder-model.js",
+      "desktopPath": "assets/reminder-model.js",
+      "bytes": 2492,
+      "crc32": "247c92f7",
+      "sha256": "c57dfecd31288f2d7fe01306ce14a18c648624ca5c62ebbc4c5a9661480a6bbc",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/reminder-ui.js",
+      "desktopPath": "assets/reminder-ui.js",
+      "bytes": 23642,
+      "crc32": "48e898ca",
+      "sha256": "9b33fb9e4854d4ebeb76685bc773595916012eca1957f2225dd98dd578060184",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/styles.css",
+      "desktopPath": "assets/styles.css",
+      "bytes": 12315,
+      "crc32": "62d5938f",
+      "sha256": "c320941b1766fe118654907945d11f2f31486b80fb2a4c494d6f68ab46724178",
+      "originalBytesPreserved": true
+    },
+    {
+      "sourceApkEntry": "assets/app/ui.js",
+      "desktopPath": "assets/ui.js",
+      "bytes": 32815,
+      "crc32": "2109a11f",
+      "sha256": "7a91ab05503b9a9c5959114ad33a122ef88a5d3d69510e5dc1e6a3d41c13f8c5",
+      "originalBytesPreserved": true
+    }
+  ],
+  "scope": "Windows adaptation preserving original H5/protocol; not APK binary conversion",
+  "assetMutation": "none; desktop runtime is injected only into the HTTP response",
+  "androidBackgroundMigrated": false,
+  "androidHealthMigrated": false,
+  "realBluetoothVerified": false,
+  "productionValidated": false
+}

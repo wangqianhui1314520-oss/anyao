@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fbf9f7">
+<link rel="icon" href="data:,">
+<meta name="description" content="安药 · 每日健康：服药计划、智能药盒联动与健康记录，数据保存在本机。">
+<title>安药 · 每日健康</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="enhancements.css">
+<link rel="stylesheet" href="refined.css">
+</head>
+<body>
+<div class="app-shell"><div class="phone">
+<header class="topbar"></header>
+<main class="view" id="view"><p class="empty">正在载入健康记录…</p></main>
+<nav class="tabs" aria-label="主导航">
+<button type="button" data-tab="today" class="active"><b></b>今日</button>
+<button type="button" data-tab="meds"><b></b>药物</button>
+<button type="button" data-tab="progress"><b></b>进度</button>
+<button type="button" data-tab="health"><b></b>健康</button>
+<button type="button" data-tab="profile"><b></b>我的</button>
+</nav>
+</div></div>
+<dialog id="detail-dialog"><div id="detail-content"></div></dialog>
+<dialog id="med-dialog">
+<form id="med-form">
+<div class="panel-head"><div><h2>添加药物</h2><small>填写名称、剂量与每日服药时间</small></div></div>
+<label class="form-field">药物名称<input name="name" required maxlength="60" placeholder="例如：莫达非尼"></label>
+<label class="form-field">剂量<input name="dose" maxlength="40" placeholder="例如：100mg"></label>
+<label class="form-field">每日时间（逗号分隔）<input name="times" placeholder="07:00,18:00"></label>
+<label class="form-field">库存数量（片）<input name="inventory" type="number" min="0" max="99999" step="1" value="30"></label>
+<label class="form-field">用药说明（可选）<input name="note" maxlength="200" placeholder="饭后服用"></label>
+<button class="primary" type="submit">保存药物</button>
+</form>
+<button type="button" class="secondary-btn close">关闭</button>
+</dialog>
+<dialog id="record-dialog">
+<form id="record-form">
+<div class="panel-head"><div><h2>记录健康数据</h2><small>选择项目并填写数值</small></div></div>
+<label class="form-field">记录项目<select name="metric">
+<option value="sleep">睡眠</option>
+<option value="mood">心情</option>
+<option value="symptom">症状</option>
+<option value="water">饮水</option>
+<option value="bp">血压</option>
+<option value="weight">体重</option>
+<option value="glucose">血糖</option>
+<option value="spo2">血氧</option>
+<option value="temperature">体温</option>
+<option value="pulse">心率</option>
+<option value="hba1c">糖化血红蛋白</option>
+</select></label>
+<label class="form-field">数值 / 状态<input name="value" required maxlength="60" placeholder="例如：7.5 小时"></label>
+<button class="primary" type="submit">保存记录</button>
+</form>
+<button type="button" class="secondary-btn close">关闭</button>
+</dialog>
+<script src="native-client.js"></script>
+<script src="ui.js"></script>
+<script src="reminder-model.js"></script>
+<script src="reminder-ui.js"></script>
+<script src="bluetooth.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f7f9" />
+  <title>安药 · 用药提醒</title>
+  <script>if(window.NativeApi)document.documentElement.classList.add('android-app');</script>
+  <script>/* 首屏之前解析字号设置，避免闪烁；主题跟随系统。 */try{var anyaoAppearance=JSON.parse(localStorage.getItem('anyao-appearance')||'{}');document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';if(anyaoAppearance.fontScale==='large')document.documentElement.dataset.fontScale='large'}catch(e){}</script>
+  <link rel="stylesheet" href="./assets.css" />
+  <link rel="stylesheet" href="./fonts.css" />
+  <link rel="stylesheet" href="./mira.css" />
+  <link rel="stylesheet" href="./app.css" />
+</head>
+<body data-role="">
+  <main class="app-shell">
+    <section class="phone" aria-label="安药用药提醒应用">
+      <section class="view view-plain">
+        <div class="entry">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="3" y="9" width="26" height="14" rx="7" stroke="currentColor" stroke-width="2"/><path d="M16 9.5v13" stroke="currentColor" stroke-width="2"/><circle cx="23" cy="16" r="2.4" fill="currentColor"/></svg>
+            </span>
+            <h1 class="brand-name">安药</h1>
+          </div>
+          <div class="surface">
+            <a class="menu-row" href="./index.html" data-lead="icon">
+              <span class="row-icon"><span class="mi-ico" data-mi="avatar" aria-hidden="true"></span></span>
+              <span class="row-body"><strong>我是服药者</strong><small>本人使用</small></span>
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+            <a class="menu-row" href="./family.html" data-lead="icon">
+              <span class="row-icon"><span class="mi-ico" data-mi="share" aria-hidden="true"></span></span>
+              <span class="row-body"><strong>我是家属</strong><small>家人使用</small></span>
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script>
+  /* 记住上次选的身份：下次打开安药直接进去；从端内“切换”回来时带 ?choose 不跳转 */
+  (function(){try{var last=localStorage.getItem('anyao-role');if(last&&location.search.indexOf('choose')<0)location.replace(last==='family'?'./family.html':'./index.html');
+  document.querySelectorAll('a.menu-row').forEach(function(a){a.addEventListener('click',function(){localStorage.setItem('anyao-role',a.getAttribute('href').indexOf('family')>=0?'family':'user')})})}catch(e){}})();
+  </script>
+</body>
+</html>
