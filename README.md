@@ -5,7 +5,6 @@
 [![Hackathon](https://img.shields.io/badge/罕见·无界-黑客松-orange)](https://lcnh7zi6opm8.feishu.cn/docx/IN8VdvcwMoyin4xGd0WcO65OnMg)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/平台-Android%20%7C%20Windows%20%7C%20Web-green.svg)](#-快速开始)
-[![Demo](https://img.shields.io/badge/在线演示-GitHub%20Pages-brightgreen)](https://wangqianhui1314520-oss.github.io/anyao/)
 
 ![安药智能药盒：独立四仓 + 提醒终端一体设计](docs/images/pillbox-overview.jpg)
 
@@ -170,7 +169,6 @@ node .qa/preview-server.mjs           # 开发浏览器预览（仅监听 127.0.
 
 ## 相关链接
 
-- 🌐 **在线演示（GitHub Pages）**：https://wangqianhui1314520-oss.github.io/anyao/ —— 3D 联动大屏 + 安药 App 浏览器演示，免安装即开（静态预览模式：三端实时联动需本地运行 `node server.cjs`，见「快速开始」）
 - 🎥 产品发布会（7 分钟）：GitHub Releases
 - 🧪 魔搭 ModelScope Demo：<发布后填写>
 - 📄 验证记录：`docs/验证记录.md`
